@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>SMS Spam Classifier</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📱 SMS Spam Classifier</h1>
+
+    <p class="subtitle">
+        Enter any SMS message below to check whether it is Spam or Ham.
+    </p>
+
+    <form action="/predict" method="POST">
+
+        <textarea
+            name="message"
+            rows="8"
+            placeholder="Type or paste your SMS message here..."
+        >{{ message if message else "" }}</textarea>
+
+        <button type="submit">
+            Check Message
+        </button>
+
+    </form>
+
+    <div class="examples">
+
+        <h3>Sample Messages</h3>
+
+        <p>
+            <strong>Spam:</strong>
+            Congratulations! You have won a FREE iPhone.
+            Click the link below to claim your prize.
+        </p>
+
+        <p>
+            <strong>Ham:</strong>
+            Hey, are we meeting at 6 PM near the college gate?
+        </p>
+
+    </div>
+
+    {% if prediction %}
+
+    <div class="result {% if 'Spam' in prediction %}spam{% elif 'Ham' in prediction %}ham{% endif %}">
+
+        <h2>{{ prediction }}</h2>
+
+        {% if confidence %}
+        <h3>Confidence : {{ confidence }}%</h3>
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+    <a href="https://github.com/BhujbalHarshada/SMS-Spam-Classifier"
+       target="_blank"
+       class="github-btn">
+
+        View Source Code
+
+    </a>
+
+    <footer>
+
+        Developed by <strong>Harshada Bhujbal</strong> ❤️
+
+    </footer>
+
+</div>
+
+</body>
+</html>
